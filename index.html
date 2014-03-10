@@ -7,14 +7,6 @@
 	<script src="js/bootstrap.js"></script>
 	<base target="_blank">
 	<meta charset="UTF-8">
-	<script>
-	void handleRequest(Request request, Response response) {
-	    if(request.method == "OPTIONS") {
-	       response.setHeader("Access-Control-Allow-Origin","https://www.bitstamp.net")
-	       response.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-	    }
-	}
-	</script>
 </head>
 
 
@@ -27,7 +19,7 @@
 		</div>
 	</div>
 	<script>
-	var price = $.ajax("https://www.bitstamp.net/api/ticker/");
+	var price = $.ajax("https://www.bitstamp.net/api/ticker/?callback=?");
 	alert(price);
 	</script>
 </body>
