@@ -19,9 +19,8 @@
 		</div>
 	</div>
 	<script>
-	$.getJSON("https://www.bitstamp.net/api/ticker/?callback=?", function(data){
-	alert(data);
-	})
+	var price = $.ajax("https://www.bitstamp.net/api/ticker/");
+	alert(price);
 	</script>
 </body>
 </html>
