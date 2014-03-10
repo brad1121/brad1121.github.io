@@ -19,7 +19,7 @@
 		</div>
 	</div>
 	<script>
-	$.get("https://www.bitstamp.net/api/ticker/", function(data){
+	$.getJSON("https://www.bitstamp.net/api/ticker/?callback=?", function(data){
 	alert(data);
 	})
 	</script>
