@@ -19,7 +19,7 @@
 			<script>
 			var BTCLast;
 			$.getJSON('http://whateverorigin.org/get?url=https://btc-e.com/api/2/btc_usd/ticker&callback=?', function(data){
-		       BTCLast = JSON.parse(data.contents).last;
+		       BTCLast = JSON.parse(data);
 		      });
 			alert(BTCLast);
 			</script>
