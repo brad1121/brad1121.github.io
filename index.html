@@ -17,10 +17,8 @@
 		<div class="jumbotron">
 			<h1 class="text-center">I'm going to put things here eventually</h1>
 			<script>
-			$.getJSON('http://whateverorigin.org/get?url=https://www.bitstamp.net/api/ticker/&callback=?', function(data){
-		       var = BTCLast = JSON.parse(data);
-		       alert(BTCLast);
-		      });
+			var data = $.getJSON('http://whateverorigin.org/get?url=https://www.bitstamp.net/api/ticker/&callback=?');
+			alert(data.contents.last);
 			</script>
 		</div>
 	</div>
