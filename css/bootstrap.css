@@ -12,9 +12,6 @@ html {
 }
 body {
   margin: 0;
-  background: linear-gradient(to right, 
-  #ff9999 33.33%, green 33.33%, 
-    green 66.66%, blue 66.66%);
 }
 article,
 aside,
