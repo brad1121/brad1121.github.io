@@ -51,7 +51,7 @@ a:active {
   text-decoration:none;
 }
 a:hover {
-  color:#000000;
+  color:#000000 !important;
   text-decoration:none;
 }
 a:link {
