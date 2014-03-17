@@ -43,32 +43,26 @@
 		} else {
 			println("<div class='alert alert-danger'>Warning: Hash does not match server seed!")
 		}
-
-		for(var i = nb;i > 0;i--){
-			var nonce = sn - i + 1;
-			console.log("Nonce is "+nonce);
-			var hash = CryptoJS.SHA512(nonce + '-' + ss + cs + '-' + nonce);
-			console.log("Hash is "+hash);
-			var  j = 124
-			var roll = "If you see this, there was an error"
-			var converting = true;
-
-
-			while(j < hash.length - 4){
-				hash = hash.toString.substr(j,5);
-				roll = parseInt(hash, 16);
-				console.log("Roll is "+roll);
-				if(roll < 1000000){
-					println("Nonce #"+nonce+": "+roll/10000);
-					j = 125;
-				} else {
-					j++;
-				}
+		function doRoll(hash) {
+			var s;
+			var roll;
+			var i = 0;
+	 
+			while (i < hash.length - 4) {
+				s = hash.substr(i, 5);
+	 
+				// 16^5-1 = 1048575
+				roll = parseInt(s, 16);
+	 
+				if (roll < 1000000) return roll;
+				i++;
 			}
-			if(j === 124){
-				roll = parseInt(hash.toString.substr(124, 4), 16);
-				println("Nonce #"+nonce+": "+roll/10000);
-			}
+	
+			roll = parseInt(hash.substr(-4), 16);
+			return roll;
+		}
+		for(var i = nb;i > 0; i--){
+			console.log(i);
 		}
 		
 	}
