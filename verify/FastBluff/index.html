@@ -30,7 +30,7 @@
 		console.log("Hashing "+ss+ssh+cs);
 		var hash = CryptoJS.SHA512(ss+ssh+cs);
 		console.log("Hash is "+hash);
-		hash = hash.Slice(0,8);
+		hash = hash.toString().substring(0,8);
 		console.log("Substring is "+hash);
 		var roll = parseInt(hash, 16);
 		console.log("Base 10 is "+roll);
