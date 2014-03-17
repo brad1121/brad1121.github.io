@@ -24,11 +24,11 @@
 
 	<script>
 	var check = function() {
-		var ssh = document.getElementById("ssh");
-		var ss = document.getElementById("ss");
-		var cs = document.getElementById("cs");
+		var ssh = document.getElementById("ssh").value;
+		var ss = document.getElementById("ss").value;
+		var cs = document.getElementById("cs").value;
 		console.log("Hashing "+ss+ssh+cs);
-		var hash = CryptoJS.sha512(ss+ssh+cs);
+		var hash = CryptoJS.SHA512(ss+ssh+cs);
 		console.log("Hash is "+hash);
 		hash = hash.substring(0,8);
 		console.log("Substring is "+hash);
