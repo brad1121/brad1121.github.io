@@ -40,7 +40,7 @@
 			println("<div class='alert alert-danger'>Warning: Hash does not match server seed!")
 		}
 		
-		var hash = CryptoJS(sn + '-' + ss + cs + '-' + sn);
+		var hash = CryptoJS.SHA512(sn + '-' + ss + cs + '-' + sn);
 		println("Roll is "+doRoll(hash));
 		
 	}
