@@ -10,5 +10,34 @@
 </head>
 
 <body>
+	<textarea class="form-control" id="ssh" placeholder="Hash of server seed"></textarea>
+	<br>
+	<textarea class="form-control" id="ss" placeholder="Server seed"></textarea>
+	<br>
+	<textarea class="form-control" id="cs" placeholder="Client seed"></textarea>
+	<br>
+	<button class="btn btn-default" id="verify">Verify</button>
+	<div id="results"></div>
+
+	<script>
+	var check = function() {
+		var ssh = document.getElementById("ssh");
+		var ss = document.getElementById("ss");
+		var cs = document.getElementById("cs");
+		console.log("Hashing "+ss+ssh+cs);
+		var hash = CryptoJS.sha512(ss+ssh+cs);
+		console.log("Hash is "+hash);
+		hash = hash.substring(0,8);
+		console.log("Substring is "+hash);
+		var roll = parseInt(hash, 16);
+		console.log("Base 10 is "+roll);
+		roll = roll / 42949672.95;
+		console.log("Roll is now "+roll);
+		roll = roll.toFixed(2);
+		console.log("Rounded roll is "+roll);
+		document.getElementById.innerHTML = "<div class="alert alert-info">Roll is "+roll+"</div>"
+	}
+	document.getElementById('verify').addEventListener('click', check);
+	</script>
 </body>
 </html>
