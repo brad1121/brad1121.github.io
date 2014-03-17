@@ -35,41 +35,40 @@
 		var ss = document.getElementById("ss").value;
 		var sn = document.getElementById('sn').value;
 		sn = parseInt(sn);
-		var nb = document.getElementById('nb').value;
-		nb = parseInt(nb);
 
 		if (CryptoJS.SHA512(ss) == ssh){
 			println("<div class='alert alert-success'>Hash matches server seed!</div>");
 		} else {
 			println("<div class='alert alert-danger'>Warning: Hash does not match server seed!")
 		}
-		function doRoll(hash) {
-			var s;
-			var roll;
-			var i = 0;
-	 
-			while (i < hash.length - 4) {
-				s = hash.substr(i, 5);
-	 
-				// 16^5-1 = 1048575
-				roll = parseInt(s, 16);
-	 
-				if (roll < 1000000) return roll;
-				i++;
-			}
-	
-			roll = parseInt(hash.substr(-4), 16);
-			return roll;
-		}
-		for(var i = nb;i > 0; i--){
-			console.log(i);
-		}
+		
+		var hash = CryptoJS(sn + '-' + ss + cs + '-' + sn);
+		println("Roll is "+doRoll(hash));
 		
 	}
 	var println = function(s) {
 		var results = document.getElementById("results");
 		results.innerHTML = results.innerHTML + s + "<br>";
 	}
+	function doRoll(hash) {
+		var s;
+		var roll;
+		var i = 0;
+	 
+		while (i < hash.length - 4) {
+			s = hash.substr(i, 5);
+ 
+			// 16^5-1 = 1048575
+			roll = parseInt(s, 16);
+	 
+			if (roll < 1000000) return roll;
+			i++;
+		}
+	}
+	
+			roll = parseInt(hash.substr(-4), 16);
+			return roll;
+		}
 	document.getElementById('verify').addEventListener('click', check);
 	</script>
 </body>
