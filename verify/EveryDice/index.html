@@ -45,11 +45,11 @@
 		}
 
 		for(var i = nb;i > 0;i--){
-			var nonce = sn - i;
+			var nonce = sn - i + 1;
 			console.log("Nonce is "+nonce);
 			var hash = CryptoJS.SHA512(nonce + '-' + ss + cs + '-' + nonce);
 			console.log("Hash is "+hash);
-			var  j = 0
+			var  j = 124
 			var roll = "If you see this, there was an error"
 			var converting = true;
 
