@@ -45,7 +45,7 @@
 		}
 
 		for(var i = nb;i > 0;i--){
-			var nonce = sn + i;
+			var nonce = sn - i;
 			console.log("Nonce is "+nonce);
 			var hash = CryptoJS.SHA512(nonce + '-' + ss + cs + '-' + nonce);
 			console.log("Hash is "+hash);
@@ -60,7 +60,7 @@
 				console.log("Roll is "+roll);
 				if(roll < 1000000){
 					println("Nonce #"+nonce+": "+roll/10000);
-					converting = false;
+					j = 125;
 				} else {
 					j++;
 				}
