@@ -16,6 +16,8 @@
 	<br>
 	<textarea class="form-control" id="ss" placeholder="Secret seed"></textarea>
 	<br>
+	<textarea class="form-control" id="ssh" placeholder="Secret seed hash"></textarea>
+	<br>
 	<button class="btn btn-default" id="verify">Verify</button>
 	<br>
 	<div id="results"></div>
@@ -25,6 +27,12 @@
 	var check = function() {
 		var ss = document.getElementById("ss").value;
 		var cs = document.getElementById("cs").value;
+		var ssh = document.getElementById("ssh").value
+		if(ssh === CryptoJS.SHA512(ss)){
+			document.getElementById("results").innerHTML = "<div class='alert alert-success'>Hash matches server seed</div>";
+		} else {
+			document.getElementById("results").innerHTML = "<div class='alert alert-danger'>Warning: Hash does not match server seed!</div>";
+		}
 		console.log("Hashing "+ss+cs);
 		var hash = CryptoJS.SHA512(ss+cs);
 		console.log("Hash is "+hash);
@@ -36,7 +44,7 @@
 		console.log("Roll is now "+roll);
 		roll = roll.toFixed(2);
 		console.log("Rounded roll is "+roll);
-		document.getElementById("results").innerHTML = "<div class='alert alert-info'>Roll is "+roll+"</div>"
+		document.getElementById("results").innerHTML = document.getElementById("results").innerHTML + "<div class='alert alert-info'>Roll is "+roll+"</div>";
 	}
 	document.getElementById('verify').addEventListener('click', check);
 	</script>
