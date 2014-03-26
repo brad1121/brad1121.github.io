@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EveryDice Verifier</title>
+	<link rel="stylesheet" href="../../css/bootstrap.css">
+	<script src="../../js/jquery-1.11.0.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/sha512.js"></script>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<div class="container">
+	<br>
+	<textarea class="form-control" id="s" placeholder="Secret"></textarea>
+	<br>
+	<textarea class="form-control" id="hs" placeholder="Hash of secret"></textarea>
+	<br>
+	<textarea class="form-control" id="cs" placeholder="Client seed"></textarea>
+	<br>
+	<textarea class="form-control" id="ui" placeholder="User ID"></textarea>
+	<br>
+	<input class="form-control" id="bi" placeholder="Bet ID" type="number"></input>
+	<br>
+	<button class="btn btn-default" id="verify">Verify</button>
+	<br>
+	<br>
+	<div id="results"></div>
+	</div>
+
+	<script>
+	var check = function() {
+		var s = document.getElementById("s").value;
+		var hs = document.getElementById("hs").value;
+		var cs = document.getElementById("cs").value;
+		var ui = document.getElementById("bi").value;
+		ui = parseInt(ui);
+		var bi = document.getElementById('bi').value;
+		bi = parseInt(bi);
+
+		if (CryptoJS.SHA512(s) == hs){
+			println("<div class='alert alert-success'>Hash matches server seed!</div>");
+		} else {
+			println("<div class='alert alert-danger'>Warning: Hash does not match server seed!")
+		}
+		
+		var hash = CryptoJS.SHA512(s+cs+ui+bi).toString();
+		var roll = parseInt(hash.substring(0,4),16);
+		println("<div class='alert alert-success'>Roll is "+roll+"</div>"(hash));
+		
+	}
+	var println = function(s) {
+		var results = document.getElementById("results");
+		results.innerHTML = results.innerHTML + s + "<br>";
+	}
+	document.getElementById('verify').addEventListener('click', check);
+	</script>
+</body>
+</html>
