@@ -28,7 +28,7 @@
 		var ss = document.getElementById("ss").value;
 		var cs = document.getElementById("cs").value;
 		var ssh = document.getElementById("ssh").value
-		if(ssh === CryptoJS.SHA512(ss)){
+		if(ssh == CryptoJS.SHA512(ss)){
 			document.getElementById("results").innerHTML = "<div class='alert alert-success'>Hash matches server seed</div>";
 		} else {
 			document.getElementById("results").innerHTML = "<div class='alert alert-danger'>Warning: Hash does not match server seed!</div>";
