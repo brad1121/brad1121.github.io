@@ -1,4 +1,4 @@
-//Initialize all of the variables
+//Create the buttons
 for (var i = 0; i < 256; i++) {
-	console.log(i);
+	document.getElementById("buttons").append("<button id='"+i+"' onclick='createAddress'>"+i+"</button>")
 };
