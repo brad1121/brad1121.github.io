@@ -1,0 +1,4 @@
+//Initialize all of the variables
+for (var i = 0; i < 256; i++) {
+	console.log(i);
+};
