@@ -6,6 +6,7 @@
 	<script src="../../js/jquery-1.11.0.min.js"></script>
 	<script src="../../js/bootstrap.js"></script>
 	<script src="../../js/hmac-sha512.js"></script>
+	<script src="../../js/sha256.js"></script>
 	<meta charset="UTF-8">
 </head>
 
@@ -16,9 +17,9 @@
 	<br>
 	<textarea class="form-control" id="n" placeholder="Nonce"></textarea>
 	<br>
-	<textarea class="form-control" id="sh" placeholder="Server hash"></textarea>
-	<br>
 	<span class="label label-danger">Save your server hash so that you can verify the hash matches the actual seed!</span>
+	<br>
+	<textarea class="form-control" id="sh" placeholder="Server hash"></textarea>
 	<br>
 	<textarea class="form-control" id="ss" placeholder="Server seed"></textarea>
 	<br>
@@ -29,33 +30,42 @@
 
 	<script>
 	var check = function() {
-		var cs = document.getElementById("cs").value;
-		var n = document.getElementById("n").value;
-		var sh = document.getElementById("sh").value;
-		var ss = document.getElementById("ss").value;
-		if (CryptoJS.hmac-sha512(ss) == sh){
+		var ONE_MILLION  = 1000000,
+		    TEN_THOUSAND = 10000,
+		    SCALE_FACTOR = (Math.pow(16, 3) - 1) / 100,
+		    HEX          = 16,
+		    cs 			 = document.getElementById("cs").value,
+		    rn 			 = document.getElementById("n").value,
+		    sh 			 = document.getElementById("sh").value,
+		    ss 			 = document.getElementById("ss").value,
+		    key          = [rn, ss, rn].join(':'),
+		    message      = [rn, cs, rn].join(':'),
+		    digest       = CryptoJS.HmacSHA512(message, key).toString(CryptoJS.enc.Hex),
+		    fiveParts    = digest.match(/.{1,5}/g),
+		    threePart    = fiveParts.pop(),
+		    result;
+
+		if (CryptoJS.SHA256(ss) == sh){
 			document.getElementById('results').innerHTML = "<div class='alert alert-success'>Server hash matches server seed</div>"
 		} else {
 			document.getElementById('results').innerHTML = "<div class='alert alert-danger'>Server hash does not match server seed!</div>"
 		}
-		var message = n + cs + n;
 		console.log("Message = " + message);
-		var key = n + ss + n;
 		console.log("Key = " + key);
-		var digest = CryptoJS.hmac-sha512(key + message);
 		console.log("Digest = " + digest);
-		fiveParts  = digest.match(/.{1,5}/g);
-        threePart = fiveParts.pop();
+
         part = fiveParts.shift();
-        var roll;
         while (part) {
-            if (part.toInt(base=16) < 1000000) {
-            	roll = part / 10000;
+        	part = parseInt(part, HEX);
+            if (part < ONE_MILLION) {
+            	result = part / TEN_THOUSAND;
             	break;
             }
             part = fiveParts.shift();
         }
-		document.getElementById("results").innerHTML = "<div class='alert alert-info'>Roll is "+roll+"</div>"
+        if (!result) result = parseInt(threePart, HEX) / SCALE_FACTOR;
+
+		document.getElementById("results").innerHTML = "<div class='alert alert-info'>Roll is "+result+"</div>"
 	}
 	document.getElementById('verify').addEventListener('click', check);
 	</script>
