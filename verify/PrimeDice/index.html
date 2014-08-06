@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PrimeDice Verifier</title>
+	<link rel="stylesheet" href="../../css/bootstrap.css">
+	<script src="../../js/jquery-1.11.0.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/sha256.js"></script>
+	<script src="../../js/hmac-sha512.js"></script>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<div class="container">
+	<br>
+	<textarea class="form-control" id="cs" placeholder="Client Seed"></textarea>
+	<br>
+	<textarea class="form-control" id="ss" placeholder="Server Seed"></textarea>
+	<br>
+	<textarea class="form-control" id="n" placeholder="Nonce"></textarea>
+	<br>
+	<button class="btn btn-default" id="verify">Verify</button>
+	<br>
+	<div id="results"></div>
+	</div>
+
+	<script>
+	var check = function() {
+		var cs = document.getElementById("cs").value;
+		var ss = document.getElementById("ss").value;
+		var n = document.getElementById("n").value;
+		console.log("Hashing " + ss + cs + "-" + n);
+		var hash = CryptoJS.HmacSHA512(ss+cs);
+		console.log("Hash is" + hash);
+		var firstFive = hash.substring(0,5);
+		console.log("Substring is " + firstFive);
+		var base10 = parseInt(firstFive, 16);
+		console.log("Base 10 is " + base10);
+		
+		document.getElementById("results").innerHTML = "<div class='alert alert-info'>Roll is "+roll+"</div>"
+	}
+	document.getElementById('verify').addEventListener('click', check);
+	</script>
+</body>
+</html>
