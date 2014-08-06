@@ -30,7 +30,8 @@
 		var ss = String(document.getElementById("ss").value);
 		var n = String(document.getElementById("n").value);
 		console.log("Hashing " + ss + cs + "-" + n);
-		var hash = CryptoJS.HmacSHA512(ss+cs);
+		var string = (ss + cs + "-" + n);
+		var hash = CryptoJS.HmacSHA512(string);
 		console.log("Hash is" + hash);
 		var firstFive = hash.substring(0,5);
 		console.log("Substring is " + firstFive);
