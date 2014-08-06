@@ -26,9 +26,9 @@
 
 	<script>
 	var check = function() {
-		var cs = document.getElementById("cs").value;
-		var ss = document.getElementById("ss").value;
-		var n = document.getElementById("n").value;
+		var cs = String(document.getElementById("cs").value);
+		var ss = String(document.getElementById("ss").value);
+		var n = String(document.getElementById("n").value);
 		console.log("Hashing " + ss + cs + "-" + n);
 		var hash = CryptoJS.HmacSHA512(ss+cs);
 		console.log("Hash is" + hash);
@@ -36,7 +36,7 @@
 		console.log("Substring is " + firstFive);
 		var base10 = parseInt(firstFive, 16);
 		console.log("Base 10 is " + base10);
-		
+
 		document.getElementById("results").innerHTML = "<div class='alert alert-info'>Roll is "+roll+"</div>"
 	}
 	document.getElementById('verify').addEventListener('click', check);
