@@ -14,33 +14,41 @@
 <body>
 	<div class="container">
 	<br>
-	<textarea class="form-control" id="cs" placeholder="Client Seed"></textarea>
+	<textarea class="form-control" id="cs" placeholder="Client Seed and Nonce (clientseed-nonce)"></textarea>
 	<br>
 	<textarea class="form-control" id="ss" placeholder="Server Seed"></textarea>
 	<br>
-	<textarea class="form-control" id="n" placeholder="Nonce"></textarea>
-	<br>
 	<button class="btn btn-default" id="verify">Verify</button>
+	<br>
 	<br>
 	<div id="results"></div>
 	</div>
 
 	<script>
 	var check = function() {
-		var cs = String(document.getElementById("cs").value);
-		var ss = String(document.getElementById("ss").value);
-		var n = String(document.getElementById("n").value);
-		console.log("Hashing " + ss + cs + "-" + n);
-		var seedNonce = (cs + "-" + n);
-		var hash = CryptoJS.HmacSHA512(ss, seedNonce);
-		console.log("Hash is" + hash);
-		var firstFive = hash.substring(0,5);
-		console.log("Substring is " + firstFive);
-		var base10 = parseInt(firstFive, 16);
-		console.log("Base 10 is " + base10);
-
-		document.getElementById("results").innerHTML = "<div class='alert alert-info'>Roll is "+roll+"</div>"
+		var doRoll = function() {
+		var cs = document.getElementById("cs").value;
+		var ss = document.getElementById("ss").value;
+		var index = 0;
+		console.log("Hashing " + ss + ", " + cs);
+		var hash = String(CryptoJS.HmacSHA512(ss, cs));
+		console.log("Hash is " + hash);
+		var lucky = parseInt(hash.substring(index, index + 5), 16);
+		while (lucky >= Math.pow(10, 6)) {
+            index++;
+            lucky = parseInt(hash.substring(index, index + 5), 16);
+                if (index + 5 == 128 + 1) {
+                    lucky = 99.99;
+                    break;
+                }
+        }
+        lucky %= Math.pow(10, 4);
+        lucky /= Math.pow(10, 2);
+        return lucky;
+		}
+		document.getElementById("results").innerHTML = "<div class='alert alert-info'>Roll is " + doRoll() + "</div>";
 	}
+
 	document.getElementById('verify').addEventListener('click', check);
 	</script>
 </body>
