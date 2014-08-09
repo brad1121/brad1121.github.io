@@ -36,8 +36,8 @@
 		var cs = document.getElementById("cs").value;
 		var ss = document.getElementById("ss").value;
 		var index = 0;
-		console.log("Hashing " + ss + ", " + cs);
-		var hash = String(CryptoJS.HmacSHA512(ss, cs));
+		console.log("Hashing " + cs + ", " + ss);
+		var hash = String(CryptoJS.HmacSHA512(cs, ss));
 		console.log("Hash is " + hash);
 		var lucky = parseInt(hash.substring(index, index + 5), 16);
 		while (lucky >= Math.pow(10, 6)) {
