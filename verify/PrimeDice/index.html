@@ -42,7 +42,7 @@
 		var lucky = parseInt(hash.substring(index, index + 5), 16);
 		while (lucky >= Math.pow(10, 6)) {
             index++;
-            lucky = parseInt(hash.substring(index, index + 5), 16);
+            lucky = parseInt(hash.substring(index * 5, index + 5), 16);
                 if (index + 5 == 128 + 1) {
                     lucky = 99.99;
                     break;
