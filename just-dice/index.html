@@ -20,10 +20,8 @@
 				<h1>Just-Dice Verifier</h1>
 
 				<div class="cont">
-					<textarea class="form-control" id="randomize" placeholder="Paste from randomize textbox (Not for use with bets with a betid less than 145,000,000)"></textarea>
+					<textarea class="form-control" id="randomize" placeholder="Paste from randomize textbox"></textarea>
 					<br>or
-					<br>
-					<textarea class="form-control" id="id" placeholder="Bet ID (Optional, for use with bets with a betid less than 145,000,000)"></textarea>
 					<br>
 					<textarea class="form-control" id="ssh" placeholder="Hash of server seed"></textarea>
 					<br>
@@ -49,7 +47,6 @@
 	<script type="text/javascript">
 		function check(event, ignoreInput) {
 			var randomize = document.getElementById('randomize').value;
-			var id = document.getElementById('id').value;
 			var ssh = document.getElementById('ssh').value;
 			var ss = document.getElementById('ss').value;
 			var cs = document.getElementById('cs').value;
@@ -86,16 +83,7 @@
 			}
 	
 			for (j = sn + nb - 1; j >= sn; j--) {
-				var gen = ""
-				var ss2;
-				if (id && id < 145000000) {
-					gen = cs + ':' + j;
-					ss2 = ss;
-				} else {
-					gen = j + ':' + cs + ':' + j;
-					ss2 = j + ':' + ss + ':' + j;
-				};
-				hash = CryptoJS.HmacSHA512(gen, ss2).toString(CryptoJS.enc.Hex);
+				hash = CryptoJS.HmacSHA512(cs + ':' + j, ss).toString(CryptoJS.enc.Hex);
 				i = 0;
 				roll = -1;
 				while (roll == -1) { // Non-reference implementation derived from the 'Fair?' description.
