@@ -92,13 +92,13 @@
 						l3 = hash.substring(125, 128);
 						l3p = l3.parseInt(l3, 16);
 						println('last 3: ' + l3 + ' as int: ' + l3p); // kept on because it's cool to get this far
-						roll = (l3p*2.442) / 1000;
+						roll = ((l3p*2.442) / 100).toFixed(0);
 					} else {
 						f5 = hash.substring(5 * i, 5 + 5 * i);
 						f5p = parseInt(f5, 16);
 						//println(f5 + ' as int: ' + f5p);
 						if (f5p < 1000000) {
-							roll = f5p / 100000;
+							roll = (f5p / 1000).toFixed(0);
 						}
 						i++;
 					}
